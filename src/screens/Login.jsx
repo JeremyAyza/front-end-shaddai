@@ -59,7 +59,7 @@ const Login = () => {
     <div className="container-center">
       <div className="container row bg-light grid-login rounded-15">
         <div className="col-md-auto">
-          <img src={logo} alt=" " className="img_login" />
+					<img src={logo} alt=" " className="img img-card img_login " />
         </div>
         <div className="col p-5">
           <form className="" onSubmit={onSubmit}>
