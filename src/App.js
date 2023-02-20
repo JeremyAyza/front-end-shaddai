@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+// redux config
+import { Provider } from 'react-redux';
+import store from './data/store'
+// routes config
+import AppRoutes from './app.routes';
+import { useEffect } from 'react';
+import { loadUser, getAllProducts, setLoadingAuth, getAllOrdersByUser, getAllCategories } from './data/actions';
 
 function App() {
+
+  useEffect(() => {
+    // Si hay un token solicito la info de usuario
+    if (localStorage.token_poo) {
+      store.dispatch(loadUser());
+      store.dispatch(getAllOrdersByUser());
+			console.log('use efect');
+    } else {
+      // Sino, le pongo el loading en false
+      store.dispatch(setLoadingAuth(false));
+    }
+		
+
+
+  },[]);
+
+  useEffect(() => {
+    store.dispatch(getAllProducts());
+    store.dispatch(getAllCategories());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.StrictMode>
+      <Provider store={store} >
+        <AppRoutes />
+      </Provider>
+    </React.StrictMode>
   );
 }
 
