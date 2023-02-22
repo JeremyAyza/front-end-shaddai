@@ -108,17 +108,21 @@ const ProductForm = () => {
 		dispatch(setProductToEdit(null));
 	};
 
+	
+
 	useEffect(() => {
 		productToEdit && setForm(productToEdit);
 	}, [productToEdit]);
 
 	return (
-		<div className="card">
-			<span className="h3 mt-90" id="Productos">
+		<div className="bg-info">
+			<span className="h3 " id="Productos">
 				Productos
 			</span>
-			<form className="card-body row">
-				<div className="form-group col-sm-4 mb-3">
+			<form className="">
+
+
+				<div className="form-group mb-2">
 					<input
 						className="form-control"
 						type="text"
@@ -128,47 +132,47 @@ const ProductForm = () => {
 						value={form.name}
 					></input>
 				</div>
-				<div className="form-group col-sm-8 mb-3">
-					<input
+
+
+				<div className="form-group mb-2">
+					<textarea
 						className="form-control"
 						type="text"
 						name="description"
 						placeholder="Descripcion"
 						onChange={handleChange}
 						value={form.description}
-					></input>
+						//defaultValue="Descripción tarea #01"
+					/>
+
 				</div>
-				<div className="input-group col mb-3">
-					<span className="input-group-text">$ </span>
-					<input
-						className="form-control"
-						type="number"
+
+				<div className="input-group mb-3">
+					<span className="input-group-text">S/</span>
+					<input 
+						type="number" 
+						className="form-control" 
+						aria-label="Amount (to the nearest dollar)"
 						name="price"
-						placeholder="Precio"
+						placeholder="0.00"
 						onChange={handleChange}
 						value={form.price}
-					></input>
+					/>
+
 				</div>
-				<div className="input-group col mb-3">
+				<div className="input-group mb-3">
+					<span className="input-group-text">Cantidad:</span>
 					<input
 						className="form-control"
 						type="number"
 						name="quantity"
-						placeholder="Cantidad"
+						placeholder="0"
 						onChange={handleChange}
 						value={form.quantity}
-					></input>
+					/>
+
 				</div>
 				<div className="input-group mb-3">
-					<span className="input-group-text">Url</span>
-					<input
-						className="form-control"
-						type="text"
-						name="photo"
-						placeholder="Url de una imagen del producto"
-						onChange={handleChange}
-						value={form.photo}
-					></input>
 					<select
 						className="form-select"
 						onChange={handleChange}
@@ -181,6 +185,23 @@ const ProductForm = () => {
 							</option>
 						))}
 					</select>
+
+				</div>
+
+
+
+				<div className="input-group mb-3">
+					<span className="input-group-text">URL Imagen:</span>
+					<input
+						className="form-control"
+						type="text"
+						name="photo"
+						placeholder="https://img.com/imagen.png"
+						onChange={handleChange}
+						value={form.photo}
+					></input>
+
+					
 				</div>
 				<div className="col-auto ms-4">
 					<button
