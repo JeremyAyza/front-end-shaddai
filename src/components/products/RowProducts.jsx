@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Modal } from 'react-bootstrap';
-import { BsPen, BsTrashFill } from 'react-icons/bs'
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { deleteProduct, setProductToEdit, showModalProducts } from '../../data/actions';
-import ProductForm from '../admin/ProductForm';
+import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { deleteProduct, setProductToEdit } from '../../data/actions';
 
 export default function RowProducts({product,i}) {
 	const dispatch = useDispatch();
@@ -13,19 +10,14 @@ export default function RowProducts({product,i}) {
 	//	state.products.categories.find((e) => e._id === product.category)
 	//);
 
-
-
-
-	
-	
 	return (
-		<tr>
-			<td className="text-center">{i}</td>
-			<td className="text-center" >{product.provider || "proveedor"}</td>
-			<td className="text-center" >{product.name}</td>
-			<td className="text-center" >{product.quantity}</td>
-			<td className="text-center" >S/. {product.price}</td>
-			<td className="text-center" >{product.sold}</td>
+		<tr className='t-nowrap'>
+			<td className="">{i+1}</td>
+			<td className=" " >{product.provider.name || "proveedor"}</td>
+			<td className="" >{product.name}</td>
+			<td className="" >{product.quantity}</td>
+			<td className="" >S/. {product.price}</td>
+			<td className="" >{product.sold}</td>
 			
 
 			<td>
@@ -37,7 +29,10 @@ export default function RowProducts({product,i}) {
 				<Button 
 				variant='outline-warning' 
 				className="px-2 "
-					onClick={()=>{dispatch(setProductToEdit(product))} }>
+					onClick={()=>{
+							dispatch(setProductToEdit(product))
+							window.scrollTo(0,0);						
+						} }>
 					🖊 Actualizar
 				</Button>
 			</td>
@@ -46,7 +41,7 @@ export default function RowProducts({product,i}) {
 				<Button 
 					variant="outline-danger" 
 					className="px-2"
-					onClick={() => dispatch(setProductToEdit(product))}>
+					onClick={() => dispatch(deleteProduct(product._id))}>
 					
 					🗑 Eliminar
 				</Button>

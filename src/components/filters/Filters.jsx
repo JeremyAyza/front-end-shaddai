@@ -9,7 +9,7 @@ import {
 } from "../../data/actions";
 import { RESTART_FILTERS, RESTART_PRODUCTS } from "../../data/actions/types";
 import { toast } from "react-toastify";
-import {  Button, Container, Form, Modal } from "react-bootstrap";
+import { Button, Container, Form, Modal } from "react-bootstrap";
 
 const Filters = () => {
 	const categories = useSelector((state) => state.products.categories);
@@ -17,14 +17,11 @@ const Filters = () => {
 	const options = useSelector((state) => state.products.options);
 	const dispatch = useDispatch();
 	const [search, setSearch] = useState("");
+	const [filters, setFilters] = useState(false)
 
 	const handleChangeSearch = (e) => {
-		
-		
 		const { value } = e.target;
-
 		setSearch(value);
-	
 	};
 
 	const handleSearch = (e) => {
@@ -34,35 +31,39 @@ const Filters = () => {
 			setSearch("");
 			toast.info("Ingrese su búsqueda");
 		} else {
+			setFilters(true)
+
 			dispatch(searchByName(search));
 		}
 	};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		//  console.log(name + " " + value);
 
+		//  console.log(name + " " + value);
+		
 		dispatch(setOptions({ [name]: value }));
 		if (name === "category") {
 			if (value === "all") {
 				dispatch({ type: RESTART_PRODUCTS });
 			} else {
+				
+
 				dispatch(filterByCategory(value));
 			}
 		}
+		setFilters(true)
 		dispatch(orderProducts());
 	};
 
 	const handleRestartFilters = (e) => {
 		e.preventDefault();
-
+		setFilters(false)
 		dispatch({ type: RESTART_FILTERS });
 		dispatch({ type: RESTART_PRODUCTS });
 		dispatch(orderProducts());
 
 	};
-
-
 
 	const [show, setShow] = useState(false);
 
@@ -71,34 +72,36 @@ const Filters = () => {
 
 
 	return (
-		<Container className="d-flex container  align-items-center justify-content-">
-			<Form className=" d-flex align-items-center justify-content-around  " onSubmit={handleSearch}>
-
-				<Form.Group className="max-w-300" >
-					<Form.Label ></Form.Label>
-					<Form.Control
-						type="search"
-						placeholder="Nombre del Producto"
-						aria-label="Search"
-						value={search}
-						onChange={handleChangeSearch}
-					/>
-					<Form.Text>Filtrar productos</Form.Text>
-				</Form.Group>
-
-
-
-				<Button variant="primary" type="submit">
-					Buscar
-				</Button>
-
-
-
-
+		<div className=" my-2  d-flex flex-row flex-wrap justify-content-around  ">
+			<Form className="  my-1" onSubmit={handleSearch}>
+				<div className="d-flex align-items-center ">
+					<Form.Group className="flex-grow-1" >
+						<Form.Control
+							type="search"
+							placeholder="Producto"
+							aria-label="Search"
+							value={search}
+							onChange={handleChangeSearch}
+						/>
+					</Form.Group>
+					<Button variant="primary" type="submit" className="flex-grow-1 t-nowrap">
+						Buscar🔎
+					</Button>
+				</div>
 			</Form>
-			<Button variant="warning px-4" className="shadow m-3" onClick={handleShow}>
-				Filtros
-			</Button>
+
+			{
+				filters ?
+
+					<Button onClick={handleRestartFilters} variant="danger" className=" my-1 shadow">
+						Borrar Filtros 🗑
+					</Button> :
+					<Button variant="warning" className="shadow my-1 px-4" onClick={handleShow}>
+						Filtros ⚙
+					</Button>
+			}
+
+
 			<Modal show={show} onHide={handleClose} animation={false}>
 				<Modal.Header closeButton>
 					<Modal.Title>Filtros de busqueda</Modal.Title>
@@ -160,18 +163,18 @@ const Filters = () => {
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={handleRestartFilters} variant="warning" className=" text-light">
-						Borrar Filtros <BsFillBackspaceFill></BsFillBackspaceFill>
+					<Button onClick={handleRestartFilters} variant="danger" className=" text-light">
+						Borrar Filtros 🗑
 					</Button>
-					<Button variant="danger" onClick={handleClose}>
-						Close
+					<Button variant="success" onClick={handleClose}>
+						Listo
 					</Button>
 				</Modal.Footer>
 			</Modal>
 
-		</Container>
+		</div>
 
-		
+
 	);
 };
 

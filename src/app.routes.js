@@ -51,18 +51,23 @@ const AppRoutes = () => {
                      <Route path='envio' element={<OrderForm />} />
                      <Route path=':id' element={<OrderDetail />} />
                   </Route>
+
                   <Route path='product'>
                      <Route path=':id' element={<Productdetail />} />
                   </Route>
+
                   <Route path='payment'>
                      <Route path=':orderId' element={<PaymentForm />} />
                   </Route>
+
                   <Route path='dashboard'>
                      <Route path='admin/products' element={<Dashboard />} />
                      <Route path='admin/categories' element={<EditCategories />} />
                      <Route path='admin/sales' element={<Sales />} />
                      <Route path='admin/users' element={<Profiles />} />
                   </Route>
+
+									
                   <Route path='*' element={<Error404 />} />
                </Route>
             </Routes>

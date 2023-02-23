@@ -5,7 +5,7 @@ import store from './data/store'
 // routes config
 import AppRoutes from './app.routes';
 import { useEffect } from 'react';
-import { loadUser, getAllProducts, setLoadingAuth, getAllOrdersByUser, getAllCategories } from './data/actions';
+import { loadUser, getAllProducts, setLoadingAuth, getAllOrdersByUser, getAllCategories, getAllProviders } from './data/actions';
 
 function App() {
 
@@ -27,6 +27,7 @@ function App() {
   useEffect(() => {
     store.dispatch(getAllProducts());
     store.dispatch(getAllCategories());
+		store.dispatch(getAllProviders());
   }, []);
 
   return (

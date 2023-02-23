@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -12,13 +13,18 @@ const initialForm = {
 	description: "",
 	price: "",
 	category: "",
+	provider: "",
 	quantity: "",
 	photo: "",
 };
 
 const validateForm = (form) => {
 	let errors = 0;
-	let { name, description, price, category, quantity, photo } = form;
+	let { name, description, price, category, quantity, photo, provider } = form;
+
+
+
+
 	price += "";
 	quantity += "";
 
@@ -47,8 +53,15 @@ const validateForm = (form) => {
 	}
 
 	// category
+
 	if (!category.trim()) {
 		toast.error("El campo categoría es requerido");
+		errors += 1;
+	}
+
+	// provider
+	if (!provider.trim()) {
+		toast.error("El campo proveedor es requerido");
 		errors += 1;
 	}
 
@@ -71,6 +84,7 @@ const validateForm = (form) => {
 };
 
 const ProductForm = () => {
+	const providers = useSelector((state) => state.products.providers);
 	const categories = useSelector((state) => state.products.categories);
 	const productToEdit = useSelector((state) => state.products.productToEdit);
 	const [form, setForm] = useState(productToEdit || initialForm);
@@ -78,7 +92,6 @@ const ProductForm = () => {
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-
 		setForm({ ...form, [name]: value });
 	};
 
@@ -108,119 +121,163 @@ const ProductForm = () => {
 		dispatch(setProductToEdit(null));
 	};
 
-	
+
 
 	useEffect(() => {
-		productToEdit && setForm(productToEdit);
+
+		if (productToEdit) {
+			const product = {
+				...productToEdit,
+				category: productToEdit.category._id,
+				provider: productToEdit.provider._id
+			}
+			setForm(product);
+		}
+
+
 	}, [productToEdit]);
 
+	//form - group mb - 2 mx - 1 border flex - grow - 1 w - 50 m - w - 250
 	return (
-		<div className="bg-info">
-			<span className="h3 " id="Productos">
-				Productos
-			</span>
-			<form className="">
 
-
-				<div className="form-group mb-2">
-					<input
-						className="form-control"
-						type="text"
-						name="name"
-						placeholder="Nombre"
-						onChange={handleChange}
-						value={form.name}
-					></input>
+		<form className="t-nowrap">
+			<div className={`container mini-header  mb-2 p-1 px-2  ${productToEdit ? 'bg-warning ' :'bg-primary text-white'}`}>
+				<h6 className=" m-0 ">{productToEdit ? 'Actualizar Poducto 🖊'  : 'Registrar Producto ✍'}</h6>
+				<div className="">
+					<Button
+						size="sm"
+						variant="outline-light"
+						onClick={() => window.scrollTo(0, 500)} >Ir al Listado</Button>
 				</div>
+			</div>
+			
+			<div className="d-flex flex-wrap d-flex justify-content-around mt-3 ">
+				<div className="container-inputs p-1 mb-2 me-2">
+					<div className="form-group mb-3 ">
+						<label className="form-label">Nombre</label>
+						<input
+							className="form-control "
+							type="text"
+							name="name"
+							placeholder="Nombre del Producto"
+							onChange={handleChange}
+							value={form.name}
+						></input>
+
+					</div>
+
+					<div className="form-group mb-3 ">
+						<label className="form-label">Precio S/.</label>
+						<input
+							type="number"
+							className="form-control"
+							name="price"
+							placeholder="0.00"
+							onChange={handleChange}
+							value={form.price}
+						/>
+					</div>
+
+					<div className="form-group mb-3">
+						<label className="form-label">URL Imagen:</label>
+						<input
+							className="form-control"
+							type="text"
+							name="photo"
+							placeholder="https://img.com/imagen.png"
+							onChange={handleChange}
+							value={form.photo}
+						></input>
+					</div>
+				</div>
+				<div className="container-inputs p-1 mb-2 me-2" >
+
+					<div className="form-group mb-3">
+						<label className="form-label">Cantidad:</label>
+						<input
+							className="form-control"
+							type="number"
+							name="quantity"
+							placeholder="0"
+							onChange={handleChange}
+							value={form.quantity}
+						/>
+					</div>
+
+					<div className="form-group mb-3 d-flex">
+						<select
+							className="form-select w-50 me-2"
+							onChange={handleChange}
+							name="category"
+							value={form.category}
+							placeholder="asda"
+						>
+							<option value="" hidden={true} >Categoria</option>
+							{categories.map((e) => (
+								<option key={e._id} value={e._id}>
+									{e.name}
+								</option>
+							))}
+						</select>
+
+						<select
+							className="form-select w-50 ms-1"
+							onChange={handleChange}
+							name="provider"
+							value={form.provider}
+						>
+							<option value="" hidden={true} >Proveedor</option>
+							{providers.map((e) => (
+								<option key={e._id} value={e._id}>
+									{e.name}
+								</option>
+							))}
+						</select>
 
 
-				<div className="form-group mb-2">
-					<textarea
-						className="form-control"
-						type="text"
-						name="description"
-						placeholder="Descripcion"
-						onChange={handleChange}
-						value={form.description}
-						//defaultValue="Descripción tarea #01"
-					/>
+					</div>
+
+					<div className="form-group  mb-3">
+						<label className="form-label">Descripción</label>
+						<input
+							className="form-control "
+							type="text"
+							name="description"
+							placeholder="Descripcion"
+							onChange={handleChange}
+							value={form.description}
+						></input>
+					</div>
 
 				</div>
+			</div>
 
-				<div className="input-group mb-3">
-					<span className="input-group-text">S/</span>
-					<input 
-						type="number" 
-						className="form-control" 
-						aria-label="Amount (to the nearest dollar)"
-						name="price"
-						placeholder="0.00"
-						onChange={handleChange}
-						value={form.price}
-					/>
+			<div className=" d-flex justify-content-end ">
+				<button className={`btn me-3 ${productToEdit? 'btn-warning':'btn-primary' }`}
 
-				</div>
-				<div className="input-group mb-3">
-					<span className="input-group-text">Cantidad:</span>
-					<input
-						className="form-control"
-						type="number"
-						name="quantity"
-						placeholder="0"
-						onChange={handleChange}
-						value={form.quantity}
-					/>
+				onClick={
+						productToEdit
+							? (e) => handleEdit(e, productToEdit.id)
+							: handleCreate
+					}
+				>
+					{productToEdit ? "Actualizar ✅" : "Registrar 💾"}
+				</button>
 
-				</div>
-				<div className="input-group mb-3">
-					<select
-						className="form-select"
-						onChange={handleChange}
-						name="category"
-						value={form.category}
-					>
-						{categories.map((e) => (
-							<option key={e._id} value={e._id}>
-								{e.name}
-							</option>
-						))}
-					</select>
 
-				</div>
+				<button 
+					onClick={handleCleanFields} 
+					className="btn btn-success me-3">
+					Limpiar campos 🗑
+				</button>
+			</div>
 
 
 
-				<div className="input-group mb-3">
-					<span className="input-group-text">URL Imagen:</span>
-					<input
-						className="form-control"
-						type="text"
-						name="photo"
-						placeholder="https://img.com/imagen.png"
-						onChange={handleChange}
-						value={form.photo}
-					></input>
+		</form>
 
-					
-				</div>
-				<div className="col-auto ms-4">
-					<button
-						onClick={
-							productToEdit
-								? (e) => handleEdit(e, productToEdit.id)
-								: handleCreate
-						}
-						className="btn btn-primary"
-					>
-						{productToEdit ? "Guardar" : "Añadir"}
-					</button>
-					&nbsp;&nbsp;&nbsp;
-					<button onClick={handleCleanFields} className="btn btn-primary">
-						Limpiar campos
-					</button>
-				</div>
-			</form>
-		</div>
+
+
 	);
 };
 

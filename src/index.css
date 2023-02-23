@@ -154,11 +154,20 @@ sans-serif;
 }
 
 .max-w-300 {
-	max-width: 300px;
+	max-width: 300px !important;
+}
+
+.m-w-250 {
+	max-width: 250px !important;
 }
 
 .w-f-100 {
 	min-width: 100px;
+}
+
+
+.w-f-200 {
+	min-width: 200px;
 }
 
 
@@ -167,6 +176,28 @@ sans-serif;
 }
 
 
+.container-inputs{
+	width: 500px;
+
+}
+
+.t-nowrap{
+	white-space: nowrap !important;
+}
+
+.header-gestion{
+	color: #eee;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.mini-header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 7px;
+}
 
 
 .img-card{
@@ -176,6 +207,8 @@ sans-serif;
 	
 
 }
+
+
 
 .btn-flotante {
 

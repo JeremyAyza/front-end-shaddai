@@ -9,27 +9,29 @@ import { Button, Modal } from "react-bootstrap";
 import { hideModalProducts } from "../../data/actions";
 
 const Dashboard = () => {
-	
+	const products = useSelector((state) => state.products.filtered);
+	return (
+		<div className="dashboard-Admin   my-2 ">
 
-  const products = useSelector((state) => state.products.filtered);
-
-
-
-  return (
-    <div className="dashboard-Admin container-fluid my-2">
-      <div className=" border">
-				<div className="border"></div>
-				{/* MODAL EDITAR */}
-				<ProductForm/>
-				<Filters />
-				<TableProduct products={products} />
+			<div className="bg-black">
+				<div className="container my-2 py-1 header-gestion">
+					<h2 className="title fs-4 m-0 ">Gestión Producto</h2>
+			</div>
+			</div>
 
 
+			
+			<div className="container bg-light rounded-3 my-3  px-1">
+			<ProductForm/>
+			</div>
+
+			<div className="container bg-light rounded-3 my-3  px-1">
+			<TableProduct products={products} />
+			</div>
 
 
-      </div>
-    </div>
-  );
+		</div>
+	);
 };
 
 export default Dashboard;

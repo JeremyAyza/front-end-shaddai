@@ -40,7 +40,9 @@ import {
 	FILTER_BY_CATEGORY,
 	RESTART_FILTERS,
 	HIDE_MODAL_PRODUCTS,
-	SHOW_MODAL_PRODUCTS
+	SHOW_MODAL_PRODUCTS,
+	FILTER_BY_PROVIDER,
+	GET_ALL_PROVIDERS
 } from './types';
 
 
@@ -63,7 +65,7 @@ export const loadUser = () => async (dispatch) => {
 }
 
 // REGISTRAR UN NUEVO USUARIO
-export const register = 
+export const register =
 	({
 		name,
 		lastname,
@@ -72,45 +74,45 @@ export const register =
 		address
 	}
 	) => async (dispatch) => {
-	// Set body
-	const body = {
-		name,
-		lastname,
-		email,
-		password,
-		address
-	};
+		// Set body
+		const body = {
+			name,
+			lastname,
+			email,
+			password,
+			address
+		};
 
-	dispatch({
-		type: SET_LOADING_AUTH
-	})
-	console.log("Body");
-	console.log(body);
-	try {
-		// Response 
-		const res = await axios.post(URL_REGISTER, body);
-
-		console.log(res.data);
 		dispatch({
-			type: REGISTER_SUCCESS,
-			payload: res.data.token
+			type: SET_LOADING_AUTH
 		})
-		dispatch(loadUser())
-		dispatch(getAllOrdersByUser())
-	} catch (err) {
-		const errors = err.response.data.errors;
-		console.log(errors);
-		if (errors) {
-			errors.map(error => toast.error(error.msg))
-		} else {
-			toast.error("No se ha podido crear su cuenta");
+		console.log("Body");
+		console.log(body);
+		try {
+			// Response 
+			const res = await axios.post(URL_REGISTER, body);
+
+			console.log(res.data);
+			dispatch({
+				type: REGISTER_SUCCESS,
+				payload: res.data.token
+			})
+			dispatch(loadUser())
+			dispatch(getAllOrdersByUser())
+		} catch (err) {
+			const errors = err.response.data.errors;
+			console.log(errors);
+			if (errors) {
+				errors.map(error => toast.error(error.msg))
+			} else {
+				toast.error("No se ha podido crear su cuenta");
+			}
+
+			dispatch({
+				type: REGISTER_FAIL
+			})
 		}
-
-		dispatch({
-			type: REGISTER_FAIL
-		})
-	}
-};
+	};
 
 // LOGUEAR USUARIO
 export const login = (body) => async (dispatch) => {
@@ -158,6 +160,18 @@ export const setLoadingAuth = (loading = true) => {
 
 // OBTENER TODOS LOS PRODUCTOS
 export const getAllProducts = () => async (dispatch) => {
+	//const getProduct = async () => {
+	//    try {
+	//      const { data } = await axios.get(`${BASEURL}/product/${id}`);
+	//      setProduct({ ...data });
+	//    } catch (err) {
+	//      toast.error("No se ha obtener la información del producto");
+	//    } finally {
+	//      setLoading(false);
+	//    }
+	//  };
+
+
 	// Seteo en true el loading
 	dispatch({
 		type: SET_LOADING_PRODUCTS,
@@ -282,13 +296,25 @@ export const deleteOrder = (id) => async (dispatch) => {
 export const getAllCategories = () => async (dispatch) => {
 	try {
 		const { data } = await axios.get(`${BASEURL}/category/all`);
-
 		// console.log("en actions");
 		// console.log(data);
 		dispatch({ type: GET_ALL_CATEGORIES, payload: data });
 	} catch (error) {
 		console.log(error.response.data);
 		toast.warning("No se han podido cargar las categorìas");
+	}
+}
+//providers
+export const getAllProviders = () => async (dispatch) => {
+	try {
+		const { data } = await axios.get(`${BASEURL}/provider/all`);
+
+		// console.log("en actions");
+		// console.log(data);
+		dispatch({ type: GET_ALL_PROVIDERS, payload: data });
+	} catch (error) {
+		console.log(error.response.data);
+		toast.warning("No se han podido cargar los proveedores");
 	}
 }
 
@@ -383,6 +409,9 @@ export const orderProducts = () => {
 
 export const filterByCategory = (categoryId) => {
 	return { type: FILTER_BY_CATEGORY, payload: categoryId };
+}
+export const filterByProvider = (providerId) => {
+	return { type: FILTER_BY_PROVIDER, payload: providerId };
 }
 
 //MODAL PRODUCTS
