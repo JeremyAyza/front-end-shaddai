@@ -16,17 +16,19 @@ const initialForm = {
 	provider: "",
 	quantity: "",
 	photo: "",
+	purchase_price:""
 };
 
 const validateForm = (form) => {
 	let errors = 0;
-	let { name, description, price, category, quantity, photo, provider } = form;
+	let { name, description, price, category, quantity, photo, provider, purchase_price } = form;
 
 
 
 
 	price += "";
 	quantity += "";
+	purchase_price+="";
 
 	// name
 	if (!name.trim()) {
@@ -51,6 +53,14 @@ const validateForm = (form) => {
 		toast.error("El campo precio debe ser un numero entero positivo");
 		errors += 1;
 	}
+	if (!purchase_price.trim()) {
+		toast.error("El campo price es requerido");
+		errors += 1;
+	} else if (parseFloat(purchase_price) < 0) {
+		toast.error("El campo precio debe ser un numero entero positivo");
+		errors += 1;
+	}
+
 
 	// category
 
@@ -175,6 +185,17 @@ const ProductForm = () => {
 							placeholder="0.00"
 							onChange={handleChange}
 							value={form.price}
+						/>
+					</div>
+					<div className="form-group mb-3 ">
+						<label className="form-label">Precio de Venta S/.</label>
+						<input
+							type="number"
+							className="form-control"
+							name="purchase_price"
+							placeholder="0.00"
+							onChange={handleChange}
+							value={form.purchase_price}
 						/>
 					</div>
 

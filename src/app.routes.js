@@ -24,6 +24,7 @@ import Productdetail from './screens/ProductDetail';
 import { Sales } from './components/admin/Sales';
 import { Profiles } from './components/admin/Profiles';
 import { EditCategories } from './components/admin/EditCategories';
+import Contactos from './components/contacts/contacts';
 
 //editar categirias
 //import { EditCategories } from './components/admin/EditCategories';
@@ -47,6 +48,7 @@ const AppRoutes = () => {
                   <Route path='login' element={<Login />} />
                   <Route path='user' element={<User />} />
                   <Route path='cart' element={<Cart />} />
+						 			<Route path='contacts' element={<Contactos />} />
                   <Route path='order'>
                      <Route path='envio' element={<OrderForm />} />
                      <Route path=':id' element={<OrderDetail />} />

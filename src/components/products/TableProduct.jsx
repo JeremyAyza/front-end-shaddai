@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Table } from 'react-bootstrap'
 import Filters from '../filters/Filters'
 import RowProducts from './RowProducts'
@@ -29,6 +29,7 @@ function TableProduct({ products }) {
 						<th>Nombre</th>
 						<th>Cantidad</th>
 						<th>Precio</th>
+						<th>P. Venta</th>
 						<th>Vendidos</th>
 
 						<th colSpan={3} style={{ maxWidth: "100px" }} >Opciones</th>

@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { deleteProduct, setProductToEdit } from '../../data/actions';
 
 export default function RowProducts({product,i}) {
@@ -17,6 +17,7 @@ export default function RowProducts({product,i}) {
 			<td className="" >{product.name}</td>
 			<td className="" >{product.quantity}</td>
 			<td className="" >S/. {product.price}</td>
+			<td className="" >{product.purchase_price}</td>
 			<td className="" >{product.sold}</td>
 			
 

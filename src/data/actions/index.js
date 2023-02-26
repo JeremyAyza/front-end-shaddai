@@ -122,6 +122,7 @@ export const login = (body) => async (dispatch) => {
 	try {
 		// Response 
 		const res = await axios.post(URL_LOGIN, body);
+		console.log(URL_LOGIN, body);
 		// console.log(res.data.token);
 
 		dispatch({
@@ -298,6 +299,7 @@ export const getAllCategories = () => async (dispatch) => {
 		const { data } = await axios.get(`${BASEURL}/category/all`);
 		// console.log("en actions");
 		// console.log(data);
+		console.log();
 		dispatch({ type: GET_ALL_CATEGORIES, payload: data });
 	} catch (error) {
 		console.log(error.response.data);
@@ -308,7 +310,7 @@ export const getAllCategories = () => async (dispatch) => {
 export const getAllProviders = () => async (dispatch) => {
 	try {
 		const { data } = await axios.get(`${BASEURL}/provider/all`);
-
+		console.log(data);
 		// console.log("en actions");
 		// console.log(data);
 		dispatch({ type: GET_ALL_PROVIDERS, payload: data });
