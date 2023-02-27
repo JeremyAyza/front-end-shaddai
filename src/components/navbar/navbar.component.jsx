@@ -52,7 +52,7 @@ const HeaderNavbar = () => {
 
 							<Nav.Link as={Link} to="/">Home</Nav.Link>
 							<Nav.Link as={Link} to="/cart">Cart</Nav.Link>
-							<Nav.Link as={Link} to="/contacts">Contacts</Nav.Link>
+							{/*<Nav.Link as={Link} to="/contacts">Contacts</Nav.Link>*/}
 
 							{/* si está logeado aparece user */}
 							{isAuth && (<Nav.Link as={Link} to="/user">Mi cuenta</Nav.Link>)}

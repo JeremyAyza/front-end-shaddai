@@ -29,7 +29,7 @@ function TableProduct({ products }) {
 						<th>Nombre</th>
 						<th>Cantidad</th>
 						<th>Precio</th>
-						<th>P. Venta</th>
+						<th>P. Compra</th>
 						<th>Vendidos</th>
 
 						<th colSpan={3} style={{ maxWidth: "100px" }} >Opciones</th>

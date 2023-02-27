@@ -188,7 +188,7 @@ const ProductForm = () => {
 						/>
 					</div>
 					<div className="form-group mb-3 ">
-						<label className="form-label">Precio de Venta S/.</label>
+						<label className="form-label">Precio de Compra S/.</label>
 						<input
 							type="number"
 							className="form-control"
