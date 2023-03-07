@@ -151,6 +151,9 @@ sans-serif;
 	font-family: 'Signika Negative', sans-serif;
 	font-style: italic;
 	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	
 }
 
 .max-w-300 {
@@ -164,6 +167,8 @@ sans-serif;
 .w-f-100 {
 	min-width: 100px;
 }
+
+
 
 
 .w-f-200 {

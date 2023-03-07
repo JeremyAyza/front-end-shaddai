@@ -34,8 +34,8 @@ const CardProduct = ({ product }) => {
 		return (
 			<>
 				<Button
-					variant="outline-primary"
-					className="shadow"
+					variant="primary"
+					className="shadow px-3"
 					onClick={handleShow}
 					size="sm"
 
@@ -93,7 +93,7 @@ const CardProduct = ({ product }) => {
 	return (
 		<>
 
-			<Card className="card bg-light shadow border">
+			<Card className="card bg-light shadow border ">
 
 				<Card.Img className="img-card" src={photo} />
 				<Card.Body className="card-body text-center  d-flex flex-column justify-content-center">
@@ -106,7 +106,8 @@ const CardProduct = ({ product }) => {
 							quantity === 0 ? (
 
 								<Button
-									className="outline-danger shadow"
+									variant="danger"
+									className="disable shadow"
 									onClick={() => toast.warn("Producto agotado")}>
 									Agotado
 								</Button>
@@ -114,9 +115,9 @@ const CardProduct = ({ product }) => {
 								:
 								(
 									<Button
-										variant={inCart ? "outline-danger" : "outline-success"}
+										variant={inCart ? "outline-danger" : "success"}
 										onClick={inCart ? handleRemoveFromCart : handleAddCart}
-										className="shadow"
+										className="shadow px-3"
 										size="sm"
 									>
 										{inCart ? <BsCartDashFill /> : <BsFillCartPlusFill />}
@@ -130,55 +131,7 @@ const CardProduct = ({ product }) => {
 				</Card.Body>
 
 			</Card>
-			{/*<div className="col-md-3" key={product._id}>
-				<div className="card mt-4 mb-4 ms-3 rounded-15">
-					<div className="card-header">
-						<Link style={{ textDecoration: "none" }} to={`/product/${_id}`}>
-							<h5 className="textToReduce">{name}</h5>
-						</Link>
-						<span className="badge rounded-15 bg-success">$ {price}</span>
-					</div>
-					<div className="card-body">
-						<img className="img-fluid imagen" src={photo} alt="" />
-						<div className="dropend b-grid">
-							<button
-								className="btn btn-info dropdown-toggle"
-								type="button"
-								id={"dropdownMenu" + _id}
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-								<span className="textToReduce">Descripcion</span>
-							</button>
-							<ul
-								className="dropdown-menu bg-secondary"
-								aria-labelledby={"dropdownMenu" + _id}
-							>
-								<p className="ps-2 pe-2 text-light text-justify">{description}</p>
-							</ul>
-						</div>
-					</div>
-					<div className="card-footer">
-						{quantity === 0 ? (
-							<button
-								className="btn btn-warning"
-								onClick={() => toast.warn("Producto agotado")}
-							>
-								Agotado
-							</button>
-						) : (
-							<button
-								className="btn btn-primary"
-								onClick={inCart ? handleRemoveFromCart : handleAddCart}
-							>
-								<span className="textToReduce">
-									{inCart ? "Quitar del carrito" : "Añadir al carrito"}
-								</span>
-							</button>
-						)}
-					</div>
-				</div>
-			</div>*/}
+			
 		</>
 	);
 };

@@ -13,23 +13,30 @@ const Home = () => {
 
 
 
-	// console.log(products);
 	return (
 		<div className="container containerToReduce">
-			<h1 className="title">SHADDAI IMPORT ECOMMERCE</h1>
-			<div>
+			
+			{/* TITLE */}
+			<div className="title-container my-3 ">
+				<h2 className="title">Home</h2>
+				<hr class="border border-success border-2 opacity-50 m-0"></hr>
+			</div>
+
+
+			{/* FILTROS */}
+			<div className="px-1">
 				<Filters />
 			</div>
-			
 
 
+			{/* ITEMS */}
 			<div className="container my-3">
 			{
 				products.length ?
 					(
-						<Row xs={2} md={3} lg={4} className="g-4">
+						<Row xs={2} md={3} lg={4} className="g-4 ">
 							{products.map((product) => (
-								<Col key={product._id}>
+								<Col key={product._id} className="px-1">
 								<CardProduct key={product._id} product={product} />
 								</Col>
 							))}
@@ -42,6 +49,8 @@ const Home = () => {
 			}
 			</div>
 
+
+			{/* CARRITO */}
 			<div className="btn-flotante">
 				<button
 					onClick={() => navigate("/cart")}

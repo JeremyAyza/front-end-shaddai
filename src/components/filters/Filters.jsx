@@ -41,13 +41,13 @@ const Filters = () => {
 		const { name, value } = e.target;
 
 		//  console.log(name + " " + value);
-		
+
 		dispatch(setOptions({ [name]: value }));
 		if (name === "category") {
 			if (value === "all") {
 				dispatch({ type: RESTART_PRODUCTS });
 			} else {
-				
+
 
 				dispatch(filterByCategory(value));
 			}
@@ -72,7 +72,7 @@ const Filters = () => {
 
 
 	return (
-		<div className=" my-2  d-flex flex-row flex-wrap justify-content-around  ">
+		<div className=" my-2  d-flex flex-row flex-wrap justify-content-between  ">
 			<Form className="  my-1" onSubmit={handleSearch}>
 				<div className="d-flex align-items-center ">
 					<Form.Group className="flex-grow-1" >
@@ -91,14 +91,15 @@ const Filters = () => {
 			</Form>
 
 			{
-				filters ?
-
-					<Button onClick={handleRestartFilters} variant="danger" className=" my-1 shadow">
+				filters
+				?
+				<Button onClick={handleRestartFilters} variant="danger" className=" my-1 shadow">
 						Borrar Filtros 🗑
-					</Button> :
-					<Button variant="warning" className="shadow my-1 px-4" onClick={handleShow}>
+				</Button>
+				:
+				<Button variant="warning" className="shadow my-1 px-4" onClick={handleShow}>
 						Filtros ⚙
-					</Button>
+				</Button>
 			}
 
 
