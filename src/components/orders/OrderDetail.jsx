@@ -197,7 +197,7 @@ const OrderDetail = () => {
                 <td colSpan={"4"} className="h4">
                   Total
                 </td>
-                <td className="fw-bold">${totalAmount}</td>
+                <td className="fw-bold">S/{totalAmount}</td>
               </tr>
             </tbody>
           </table>

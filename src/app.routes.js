@@ -19,6 +19,8 @@ import { useEffect } from 'react';
 import { saveCartLocalStorage } from './helpers/cartLocalStorage';
 import PaymentForm from './components/orders/Payment.form';
 import Dashboard from './components/admin/Dashboard';
+import SalesDashboard from './components/admin/sales/SalesDashboard';
+
 import Productdetail from './screens/ProductDetail';
 // import { FaShoppingCart } from 'react-icons/fa';
 import { Sales } from './components/admin/Sales';
@@ -66,6 +68,8 @@ const AppRoutes = () => {
                      <Route path='admin/products' element={<Dashboard />} />
                      <Route path='admin/categories' element={<EditCategories />} />
                      <Route path='admin/sales' element={<Sales />} />
+							 <Route path='admin/salesp' element={<SalesDashboard />} />
+
                      <Route path='admin/users' element={<Profiles />} />
                   </Route>
 

@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import ProductForm from "./ProductForm";
-import { useDispatch, useSelector } from "react-redux";
-import CardProductAdmin from "../products/Card.product.admin";
-import { EditCategories } from "./EditCategories";
-import Filters from "../filters/Filters";
+import {  useSelector } from "react-redux";
+
 import TableProduct from "../products/TableProduct";
-import { Button, Modal } from "react-bootstrap";
-import { hideModalProducts } from "../../data/actions";
+
 
 const Dashboard = () => {
-	const products = useSelector((state) => state.products.filtered);
+	let products = useSelector((state) => state.products.filtered);
 	return (
 		<div className="dashboard-Admin   my-2 ">
 
@@ -19,8 +16,6 @@ const Dashboard = () => {
 			</div>
 			</div>
 
-
-			
 			<div className="container bg-light rounded-3 my-3  px-1">
 			<ProductForm/>
 			</div>

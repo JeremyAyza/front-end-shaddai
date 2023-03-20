@@ -23,7 +23,7 @@ const OrderItem = ({ order }) => {
         {products.reduce((prev, current) => prev + current.quantity, 0)}{" "}
         artículos
       </td>
-      <td>US${totalAmount}</td>
+      <td>{totalAmount}</td>
       <td>{status}</td>
       <td>{paid ? "Si" : "No"}</td>
       <td>

@@ -161,17 +161,6 @@ export const setLoadingAuth = (loading = true) => {
 
 // OBTENER TODOS LOS PRODUCTOS
 export const getAllProducts = () => async (dispatch) => {
-	//const getProduct = async () => {
-	//    try {
-	//      const { data } = await axios.get(`${BASEURL}/product/${id}`);
-	//      setProduct({ ...data });
-	//    } catch (err) {
-	//      toast.error("No se ha obtener la información del producto");
-	//    } finally {
-	//      setLoading(false);
-	//    }
-	//  };
-
 
 	// Seteo en true el loading
 	dispatch({
@@ -286,7 +275,9 @@ export const deleteOrder = (id) => async (dispatch) => {
 	try {
 		await axios.delete(`${BASEURL}/order/${id}`, getHeaderToken());
 		toast.info(`Orden ${id} eliminada exitosamente`);
+		dispatch(getAllSales()) //ANTE CUALQUIER PROBLEMA BORRAR ESTA LINEA
 		dispatch(getAllOrdersByUser());
+		
 	} catch (error) {
 		console.log(error.response.data);
 		toast.error("No se ha podido eliminar el pedido");
@@ -391,6 +382,7 @@ export const getAllSales = () => async (dispatch) => {
 			getHeaderToken()
 		);
 		dispatch({ type: GET_ALL_SALES, payload: data });
+
 	} catch (error) {
 		console.log(error.response.data);
 		toast.error("No se han podido cargar los usuarios");

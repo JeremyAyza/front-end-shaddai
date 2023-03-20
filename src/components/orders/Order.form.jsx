@@ -82,92 +82,100 @@ const OrderForm = () => {
   }, [loadingOrder, createdOrder, navigate]);
 
   return (
-    <div className="container-center">
-      <div className=" container card">
-        <h2>Productos a comprar</h2>
-        {cart.length && (
-          <table className="table align-middle table-striped table-bordered">
-            <thead>
-              <tr>
-                <td>ID</td>
-                <td>Detalle</td>
-                <td>Cantidad</td>
-                <td>Precio Unitario</td>
-                <td>Subtotal</td>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.length &&
-                cart.map((e) => {
-                  return (
-                    <tr key={e._id}>
-                      <td>{e._id}</td>
-                      <td>{e.name}</td>
-                      <td>{e.quantity}</td>
-                      <td>{e.price}</td>
-                      <td>{e.price * e.quantity}</td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        )}
-        {loadingOrder && <Loader />}
-        <span className="h3 pt-2 mt-2 border-top border-4 border-primary" id="Productos">
-          Dirección de envío
-        </span>
-        <form className="card-body row" onSubmit={handleSubmit}>
-          <div className="form col-sm-6 mb-3">
-            <FormInput
-              type={"text"}
-              title={"País"}
-              name={"country"}
-              placeholder="Ecuador"
-              value={form.country}
-              handleChange={handleChange}
-            />
-            {errors.country && <span className="badge bg-danger">{errors.country}</span>}
-          </div>
-          <div className="form col-sm-6 mb-3">
-            <FormInput
-              type={"text"}
-              title={"Ciudad"}
-              name={"city"}
-              placeholder="Loja"
-              value={form.city}
-              handleChange={handleChange}
-            />
-            {errors.city && <span className="badge bg-danger">{errors.city}</span>}
-          </div>
-          <div className="form col-sm-6 mb-3">
-            <FormInput
-              type={"text"}
-              title={"Dirección"}
-              name={"address"}
-              placeholder="Av. Occidental y Luis Crespo"
-              value={form.address}
-              handleChange={handleChange}
-            />
-            {errors.address && <span className="badge bg-danger">{errors.address}</span>}
-          </div>
-          <div className="form col-sm-6 mb-3">
-            <FormInput
-              type={"text"}
-              title={"Referencia"}
-              name={"reference"}
-              placeholder="Junto a la tienda Camila..."
-              value={form.reference}
-              handleChange={handleChange}
-            />
-            {errors.reference && <span className="badge bg-danger">{errors.reference}</span>}
-          </div>
-          <div className="btn-group gap-3">
-            <button className="btn btn-primary" onClick={handleSubmit}>Guardar datos</button>
-            <button className="btn btn-danger" onClick={handleCancelar}>Cancelar</button>
-          </div>
-        </form>
-      </div>
-    </div>
+		<div className="container">
+			<div className="card p-3">
+				<h2 className="card-title">Productos a comprar</h2>
+				{cart.length ? (
+					<table className="table table-striped responsive">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Cantidad</th>
+								<th>Precio Unitario</th>
+								<th>Subtotal</th>
+							</tr>
+						</thead>
+						<tbody>
+							{cart.map((item) => (
+								<tr key={item._id}>
+									<td>{item.name}</td>
+									<td>{item.quantity}</td>
+									<td>{item.price}</td>
+									<td>{item.price * item.quantity}</td>
+								</tr>
+							))}
+							<tr>
+								<td colSpan="3" className="text-end fw-bold">Total:</td>
+								<td className="fw-bold">{cart.reduce((acc, item) => acc + item.price * item.quantity, 0)}</td>
+							</tr>
+						</tbody>
+					</table>
+				) : (
+					<p className="text-muted">No hay productos en el carrito</p>
+				)}
+				{loadingOrder && <Loader />}
+			</div>
+
+			<div className="card mt-3 p-3">
+				<h2 className="card-title">Dirección de envío</h2>
+				<form onSubmit={handleSubmit}>
+					<div className="row g-3">
+						<div className="col-md-6 " disabled >
+							<FormInput
+								type="text"
+								title="País"
+								name="country"
+								disabled 
+								placeholder="Perú"
+								value={form.country}
+								handleChange={handleChange}
+							/>
+							{errors.country && <div className="text-danger">{errors.country}</div>}
+						</div>
+						<div className="col-md-6">
+							<FormInput
+								type="text"
+								title="Ciudad"
+								name="city"
+								placeholder="Loja"
+								value={form.city}
+								handleChange={handleChange}
+							/>
+							{errors.city && <div className="text-danger">{errors.city}</div>}
+						</div>
+						<div className="col-md-12">
+							<FormInput
+								type="text"
+								title="Dirección"
+								name="address"
+								placeholder="Av. Occidental y Luis Crespo"
+								value={form.address}
+								handleChange={handleChange}
+							/>
+							{errors.address && <div className="text-danger">{errors.address}</div>}
+						</div>
+						<div className="col-md-12">
+							<FormInput
+								type="text"
+								title="Referencia"
+								name="reference"
+								placeholder="Junto a la tienda Camila..."
+								value={form.reference}
+								handleChange={handleChange}
+							/>
+							{errors.reference && <div className="text-danger">{errors.reference}</div>}
+						</div>
+						<div className="col-md-12">
+							<div className="d-grid gap-2 d-md-flex justify-content-md-end">
+								<button className="btn btn-primary me-md-2" type="submit">Guardar datos</button>
+								<button className="btn btn-danger" type="button" onClick={handleCancelar}>Cancelar</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
   );
 };
 

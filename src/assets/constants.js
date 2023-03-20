@@ -21,4 +21,4 @@ export const URL_GET_ALL_CATEGORIES = `${BASEURL}/category/all`;
 export const URL_GET_ORDERS_BY_USER = `${BASEURL}/order/user`; //require a token
 
 // STRIPE
-export const PUBLIC_KEY_STRIPE = "pk_test_51KTUZNBdvmSnqnqxtxvnmgeAf04BMNe1rNSGcOFWN8lr79D3p5IgLqq2oZC7nLdYkIW1bUbbrVfqWG5LEdIOzIMw00HFQ6Phfm"
+export const PUBLIC_KEY_STRIPE = "pk_test_51MnNhMLSjY2yfIMcdxVinV1YCpmfjbxaiWgKnfDdJDcEVAZn4JKiRMTTRlvp9X2IyLrf2pDn46wb3JeaaLCwQVJQ00gUpybEQg"

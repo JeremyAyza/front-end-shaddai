@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import Container from "../container/container.component";
-import { Navbar, Container, NavDropdown, Button,  Nav } from "react-bootstrap";
+import { Navbar, Container, NavDropdown, Button, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../data/actions";
 
@@ -13,8 +13,6 @@ import { logout } from "../../data/actions";
 
 const HeaderNavbar = () => {
 	const navigate = useNavigate();
-
-
 	const dispatch = useDispatch();
 	const isAuth = useSelector((state) => state.auth.isAuthenticated);
 	const user = useSelector((state) => state.auth.user);
@@ -62,10 +60,11 @@ const HeaderNavbar = () => {
 							{
 								isAuth && user && user.role === 1 && (
 									<>
-
 										<NavDropdown title="Gestiones" id="collasible-nav-dropdown">
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/products`} >Gestion Producto</NavDropdown.Item>
-											<NavDropdown.Item as={Link} to={`/dashboard/admin/sales`} >Gestion Pedidos</NavDropdown.Item>
+											{/*<NavDropdown.Item as={Link} to={`/dashboard/admin/sales`} >Gestion Ventas</NavDropdown.Item>*/}
+											<NavDropdown.Item as={Link} to={`/dashboard/admin/salesp`} >Gestion Ventas</NavDropdown.Item>
+
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/users`} >Gestion Usuarios</NavDropdown.Item>
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/categories`} >Gestion Categorias</NavDropdown.Item>
 
@@ -92,10 +91,10 @@ const HeaderNavbar = () => {
 									<Nav.Link className="btn btn-outline-primary text-priamry p-1 px-3 mx-2 white-imp" as={Link} to="/register">Registrar</Nav.Link>
 								</>
 							) :
-							(
+								(
 									<Button variant="outline-danger" onClick={handleLogout}>Cerrar sesion</Button>
 
-							)
+								)
 
 						}
 
