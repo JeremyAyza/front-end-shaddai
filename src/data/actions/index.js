@@ -71,7 +71,9 @@ export const register =
 		lastname,
 		email,
 		password,
-		address
+		address,
+		phone,
+		dni
 	}
 	) => async (dispatch) => {
 		// Set body
@@ -80,7 +82,9 @@ export const register =
 			lastname,
 			email,
 			password,
-			address
+			address,
+			phone,
+			dni
 		};
 
 		dispatch({

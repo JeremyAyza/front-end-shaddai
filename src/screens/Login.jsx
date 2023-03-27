@@ -56,12 +56,12 @@ const Login = () => {
   }
 
   return (
-    <div className="container-center">
-      <div className="container row bg-light grid-login rounded-15">
-        <div className="col-md-auto">
+    <div className="centrar">
+      <div className="container row bg-light grid-login rounded-15 my-3">
+        <div className="col-md-auto centrar">
 					<img src={logo} alt=" " className="img img-card img_login " />
         </div>
-        <div className="col p-5">
+        <div className="col ">
           <form className="" onSubmit={onSubmit}>
             <h2 className="form-label">Login</h2>
             <FormInput

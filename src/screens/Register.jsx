@@ -15,6 +15,8 @@ const initialState = {
   password: "",
   confirmPassword: "",
   address: "",
+	phone:"",
+	dni: ""
 };
 
 const Register = ({ isAuth, isLoading, user }) => {
@@ -28,12 +30,12 @@ const Register = ({ isAuth, isLoading, user }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { name, lastname, email, password, confirmPassword, address } = form;
+		const { name, lastname, email, password, confirmPassword, address, phone, dni } = form;
 
     if (password !== confirmPassword) {
       toast("La contraseña no coincide");
     } else {
-      dispatch(register({ name, lastname, email, password, address }));
+      dispatch(register({ name, lastname, email, password, address, phone,dni }));
     }
   };
 
@@ -70,6 +72,25 @@ const Register = ({ isAuth, isLoading, user }) => {
             type="text"
             moreClass={["h5", "mb-2"]}
           />
+					<FormInput
+						title="Celular"
+						placeholder="Celular"
+						name="phone"
+						value={form.phone}
+						handleChange={handleChange}
+						type="text"
+						moreClass={["h5", "mb-2"]}
+					/>
+					<FormInput
+						title="DNI"
+						placeholder="DNI"
+						name="dni"
+						value={form.dni}
+						handleChange={handleChange}
+						type="text"
+						moreClass={["h5", "mb-2"]}
+						
+					/>
           <FormInput
             title="Dirección"
             placeholder="Av. Occidental y Manuel Crespo"
