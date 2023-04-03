@@ -62,6 +62,10 @@ const HeaderNavbar = () => {
 									<>
 										<NavDropdown title="Gestiones" id="collasible-nav-dropdown">
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/products`} >Gestion Producto</NavDropdown.Item>
+											<NavDropdown.Item as={Link} to={`/dashboard/admin/providers`} >Gestion Proveedor</NavDropdown.Item>
+
+
+											
 											{/*<NavDropdown.Item as={Link} to={`/dashboard/admin/sales`} >Gestion Ventas</NavDropdown.Item>*/}
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/salesp`} >Gestion Ventas</NavDropdown.Item>
 

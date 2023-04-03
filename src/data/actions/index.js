@@ -8,7 +8,8 @@ import {
 	USER_GET_INFO,
 	URL_GET_ALL_PRODUCTS,
 	URL_GET_ORDERS_BY_USER,
-	BASEURL
+	BASEURL,
+	URL_GET_ALL_PROVIDER
 } from '../../assets/constants';
 import {
 	AUTH_ERROR,
@@ -42,7 +43,10 @@ import {
 	HIDE_MODAL_PRODUCTS,
 	SHOW_MODAL_PRODUCTS,
 	FILTER_BY_PROVIDER,
-	GET_ALL_PROVIDERS
+	GET_ALL_PROVIDERS,  SEARCH_PROVIDER_BY_NAME,
+	RESTART_PROVIDER_FILTERS,ORDER_PROVIDERS, SET_PROVIDER_TO_EDIT, SET_LOADING_PROVIDERS
+
+
 } from './types';
 
 
@@ -190,7 +194,34 @@ export const getAllProducts = () => async (dispatch) => {
 		})
 	}
 }
+// OBTENER TODOS LOS PROVEEDORES
+export const getAllProviders = () => async (dispatch) => {
 
+	// Seteo en true el loading
+	dispatch({
+		type: SET_LOADING_PROVIDERS,
+		payload: true
+	})
+	// Realizo la petición a la API
+	try {
+		const res = await axios.get(URL_GET_ALL_PROVIDER);
+		// console.log(res.data);
+
+		dispatch({
+			type: GET_ALL_PROVIDERS,
+			payload: res.data
+		});
+		dispatch(orderProviders());
+	} catch (err) {
+		toast.error("No se han podido cargar los proveedores");
+		console.log(err);
+		dispatch({
+			type: SET_LOADING_PROVIDERS,
+			payload: false
+		})
+	}
+}
+//OBTENER PRODUCTOS POR NOMBRE
 export const searchByName = (search) => async (dispatch) => {
 	try {
 		const { data } = await axios.get(
@@ -204,6 +235,26 @@ export const searchByName = (search) => async (dispatch) => {
 			dispatch({ type: SEARCH_BY_NAME, payload: data });
 			dispatch(orderProducts());
 			dispatch(setOptions({ category: "all" }));
+		}
+	} catch (error) {
+		console.log(error.response.data);
+		toast.error("No se ha podido realizar la búsqueda");
+	}
+}
+//OBTENER PROVEEDORES POR NOMBRE
+export const searchProviderByName = (search) => async (dispatch) => {
+	try {
+		const { data } = await axios.get(
+			`${BASEURL}/provider/search?search=${search}`
+		);
+		// console.log(data);
+		if (data.length === 0) {
+			toast.info("No se hallaron resultados para su búsqueda");
+			dispatch({ type: RESTART_PROVIDER_FILTERS });
+		} else {
+			dispatch({ type: SEARCH_PROVIDER_BY_NAME, payload: data });
+			dispatch(orderProviders());
+			//dispatch(setOptions({ category: "all" }));
 		}
 	} catch (error) {
 		console.log(error.response.data);
@@ -302,18 +353,7 @@ export const getAllCategories = () => async (dispatch) => {
 	}
 }
 //providers
-export const getAllProviders = () => async (dispatch) => {
-	try {
-		const { data } = await axios.get(`${BASEURL}/provider/all`);
-		console.log(data);
-		// console.log("en actions");
-		// console.log(data);
-		dispatch({ type: GET_ALL_PROVIDERS, payload: data });
-	} catch (error) {
-		console.log(error.response.data);
-		toast.warning("No se han podido cargar los proveedores");
-	}
-}
+
 
 export const deleteProduct = (id) => async (dispatch) => {
 	try {
@@ -323,6 +363,16 @@ export const deleteProduct = (id) => async (dispatch) => {
 	} catch (error) {
 		console.log(error.response.data);
 		toast.error("No se ha podido eliminar el producto");
+	}
+}
+export const deleteProvider = (id) => async (dispatch) => {
+	try {
+		await axios.delete(`${BASEURL}/provider/${id}`, getHeaderToken());
+		toast.info(`Proveedor ${id} eliminado`);
+		dispatch(getAllProviders());
+	} catch (error) {
+		console.log(error.response.data);
+		toast.error("No se ha podido eliminar el proveedor");
 	}
 }
 
@@ -342,6 +392,21 @@ export const updateProduct = (product) => async (dispatch) => {
 	}
 }
 
+export const updateProvider = (provider) => async (dispatch) => {
+	try {
+		await axios.put(
+			`${BASEURL}/provider/${provider._id}`,
+			provider,
+			getHeaderToken()
+		);
+		toast.success(`Proveedor '${provider.name}' actualizado`);
+		dispatch(getAllProviders());
+	} catch (error) {
+		console.log(error.response.data);
+		toast.error("No se ha podido actualizar el proveedor");
+	}
+}
+
 
 export const createProduct = (product) => async (dispatch) => {
 	try {
@@ -357,6 +422,22 @@ export const createProduct = (product) => async (dispatch) => {
 		toast.error("No se ha podido crear el producto");
 	}
 }
+export const createProvider = (provider) => async (dispatch) => {
+	try {
+		await axios.post(
+			`${BASEURL}/provider`,
+			provider,
+			getHeaderToken()
+		);
+		toast.success(`Proveedor creado`);
+		dispatch(getAllProviders());
+	} catch (error) {
+		console.log(error.response.data);
+		toast.error("No se ha podido crear el provider");
+	}
+}
+
+
 
 export const setLoadingAdmin = (value = true) => ({ type: SET_LOADING_ADMIN, payload: value })
 
@@ -396,6 +477,8 @@ export const getAllSales = () => async (dispatch) => {
 }
 
 export const setProductToEdit = (product) => ({ type: SET_PRODUCT_TO_EDIT, payload: product })
+export const setProviderToEdit = (provider) => ({ type: SET_PROVIDER_TO_EDIT, payload: provider })
+
 
 export const setOptions = (newOptions) => {
 	return { type: SET_OPTIONS, payload: newOptions };
@@ -403,6 +486,9 @@ export const setOptions = (newOptions) => {
 
 export const orderProducts = () => {
 	return { type: ORDER_PRODUCTS };
+}
+export const orderProviders = () => {
+	return { type: ORDER_PROVIDERS };
 }
 
 export const filterByCategory = (categoryId) => {

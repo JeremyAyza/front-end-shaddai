@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BASEURL } from "../assets/constants";
@@ -11,7 +11,7 @@ const Productdetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const { name, description, price, category, quantity, photo } = product || {};
+  const { name, description, price, provider,category, quantity, photo } = product || {};
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.products.cart);
   const [inCart, setInCart] = useState(cart.find((e) => e._id === id));
@@ -43,78 +43,54 @@ const Productdetail = () => {
   return loading ? (
     <Loader />
   ) : product ? (
-    <div className="container-center">
-      <div className="container card  rounded-15 bg-light">
-        <div className="row">
-          <div className="col-md-auto div-img">
-            <img src={photo} alt={name} />
-          </div>
-          <div className="col d-flex">
-            <table className="table table-striped table-bordered rounded-15 align-middle mt-3">
-              <thead>
-                <tr>
-                  <td colSpan={2}>
-                    <h2>{name}</h2>
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="h3">Descripción:</td>
-                  <td className="p">{description}</td>
-                </tr>
-                <tr>
-                  <td className="h3">Precio:</td>
-                  <td className="h5">{price}</td>
-                </tr>
-                <tr>
-                  <td className="h3">Categoría:</td>
-                  <td className="h5">{category.name}</td>
-                </tr>
-                <tr>
-                  <td className="h3">Cantidad:</td>
-                  <td className="h5">{quantity}</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colSpan={2}>
-                    {quantity > 0 ? (
-                      inCart ? (
-                        <button
-                          className="btn btn-primary"
-                          onClick={handleRemoveFromCart}
-                        >
-                          Quitar del carrito
-                        </button>
-                      ) : (
-                        <button
-                          className="btn btn-primary"
-                          onClick={handleAddCart}
-                        >
-                          Añadir al carrito
-                        </button>
-                      )
-                    ) : (
-                      <button
-                        onClick={() =>
-                          toast.warn(
-                            "Ya no quedan más unidades en stock. Lamentamos las molestias"
-                          )
-                        }
-                        className="btn btn-info"
-                      >
-                        Producto agotado
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+			<div className="container p-5">
+				<div className="row g-5">
+					<div className="col-md-5 d-flex align-items-center">
+						<img src={photo} alt={name} className="img-fluid rounded-start" style={{ maxHeight: "300px" }} />
+					</div>
+					<div className="col-md-7 d-flex align-items-center">
+						<div className="container-fluid">
+							<h2 className="mb-3">{name}</h2>
+							<ul className="list-group">
+								<li className="list-group-item border-0  border bg-bone ">
+									ℹ Descripción: <br />{description}
+								</li>
+								<li className="list-group-item border-0  border bg-bone ">
+									ℹ Precio: {price}
+								</li>
+								<li className="list-group-item border-0  border bg-bone ">
+									ℹ Categoría: {category.name}
+								</li>
+								<li className="list-group-item border-0  border bg-bone ">
+									ℹ Proveedor: {provider.name}
+								</li>
+								<li className="list-group-item border-0  border bg-bone ">
+									ℹ Cantidad: {quantity}
+								</li>
+							</ul>
+							<div className="mt-3">
+								{quantity > 0 ? (
+									inCart ? (
+										<button className="btn btn-outline-danger" onClick={handleRemoveFromCart}>
+											<i className="bi bi-cart-x me-2"></i>Quitar del carrito
+										</button>
+									) : (
+										<button className="btn btn-outline-primary" onClick={handleAddCart}>
+											<i className="bi bi-cart-plus me-2"></i>Añadir al carrito
+										</button>
+									)
+								) : (
+									<button className="btn btn-outline-secondary" onClick={() => toast.warn("Ya no quedan más unidades en stock. Lamentamos las molestias")}>
+										<i className="bi bi-emoji-frown me-2"></i>Producto agotado
+									</button>
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
   ) : (
     <div>
       <h3>404</h3>

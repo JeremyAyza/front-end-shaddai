@@ -23,12 +23,9 @@ const validateForm = (form) => {
 	let errors = 0;
 	let { name, description, price, category, quantity, photo, provider, purchase_price } = form;
 
-
-
-
 	price += "";
 	quantity += "";
-	purchase_price+="";
+	purchase_price += "";
 
 	// name
 	if (!name.trim()) {
@@ -47,23 +44,29 @@ const validateForm = (form) => {
 
 	// price
 	if (!price.trim()) {
-		toast.error("El campo price es requerido");
+		toast.error("El campo precio es requerido");
+		errors += 1;
+	} else if (isNaN(price)) {
+		toast.error("El campo precio debe ser un número");
 		errors += 1;
 	} else if (parseFloat(price) < 0) {
-		toast.error("El campo precio debe ser un numero entero positivo");
+		toast.error("El campo precio debe ser un número positivo");
 		errors += 1;
 	}
+
+	// purchase price
 	if (!purchase_price.trim()) {
-		toast.error("El campo price es requerido");
+		toast.error("El campo precio de compra es requerido");
+		errors += 1;
+	} else if (isNaN(purchase_price)) {
+		toast.error("El campo precio de compra debe ser un número");
 		errors += 1;
 	} else if (parseFloat(purchase_price) < 0) {
-		toast.error("El campo precio debe ser un numero entero positivo");
+		toast.error("El campo precio de compra debe ser un número positivo");
 		errors += 1;
 	}
 
-
 	// category
-
 	if (!category.trim()) {
 		toast.error("El campo categoría es requerido");
 		errors += 1;
@@ -79,19 +82,26 @@ const validateForm = (form) => {
 	if (!quantity.trim()) {
 		toast.error("El campo cantidad es requerido");
 		errors += 1;
+	} else if (isNaN(quantity)) {
+		toast.error("El campo cantidad debe ser un número entero");
+		errors += 1;
 	} else if (parseInt(quantity) < 0) {
-		toast.error("El campo cantidad debe ser un numero entero positivo");
+		toast.error("El campo cantidad debe ser un número entero positivo");
 		errors += 1;
 	}
 
-	//photo
+	// photo
 	if (!photo.trim()) {
 		toast.error("El campo Url es requerido");
+		errors += 1;
+	} else if (!/^(http(s)?:\/\/)([^\s/?.#-]+\.?)+(\/[^\s]*)?$/.test(photo)) {
+		toast.error("El campo Url debe ser una dirección URL válida");
 		errors += 1;
 	}
 
 	return errors;
 };
+
 
 const ProductForm = () => {
 	const providers = useSelector((state) => state.products.providers);

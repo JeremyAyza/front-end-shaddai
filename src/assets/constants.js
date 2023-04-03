@@ -17,6 +17,11 @@ export const URL_FILTER_PRODUCTS = `${BASEURL}/product/filter`;
 // CATEGORY
 export const URL_GET_ALL_CATEGORIES = `${BASEURL}/category/all`;
 
+// PROVIDER
+export const URL_GET_ALL_PROVIDER = `${BASEURL}/provider/all`;
+export const URL_SEARCH_PROVIDER_BY_NAME = `${BASEURL}/provider/search`;
+
+
 // ORDERS
 export const URL_GET_ORDERS_BY_USER = `${BASEURL}/order/user`; //require a token
 

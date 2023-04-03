@@ -27,60 +27,62 @@ import { Sales } from './components/admin/Sales';
 import { Profiles } from './components/admin/Profiles';
 import { EditCategories } from './components/admin/EditCategories';
 import Contactos from './components/contacts/contacts';
+import DashboardProvider from './components/admin/providers/DashboardProvider';
 
 //editar categirias
 //import { EditCategories } from './components/admin/EditCategories';
 
 const AppRoutes = () => {
-   const cart = useSelector(state => state.products.cart);
+	const cart = useSelector(state => state.products.cart);
 
-   useEffect(() => {
-      saveCartLocalStorage(cart);
-   }, [cart]);
+	useEffect(() => {
+		saveCartLocalStorage(cart);
+	}, [cart]);
 
-   return (
-      <div style={{ minHeight: "962px" }}>
-         <BrowserRouter>
-            <ToastContainer />
-            <HeaderNavbar />
-            <Routes>
-               <Route path='/'>
-                  <Route index element={<Home />} />
-                  <Route path='register' element={<Register />} />
-                  <Route path='login' element={<Login />} />
-                  <Route path='user' element={<User />} />
-                  <Route path='cart' element={<Cart />} />
-						 			<Route path='contacts' element={<Contactos />} />
-                  <Route path='order'>
-                     <Route path='envio' element={<OrderForm />} />
-                     <Route path=':id' element={<OrderDetail />} />
-                  </Route>
+	return (
+		<div style={{ minHeight: "962px" }}>
+			<BrowserRouter>
+				<ToastContainer />
+				<HeaderNavbar />
+				<Routes>
+					<Route path='/'>
+						<Route index element={<Home />} />
+						<Route path='register' element={<Register />} />
+						<Route path='login' element={<Login />} />
+						<Route path='user' element={<User />} />
+						<Route path='cart' element={<Cart />} />
+						<Route path='contacts' element={<Contactos />} />
+						<Route path='order'>
+							<Route path='envio' element={<OrderForm />} />
+							<Route path=':id' element={<OrderDetail />} />
+						</Route>
 
-                  <Route path='product'>
-                     <Route path=':id' element={<Productdetail />} />
-                  </Route>
+						<Route path='product'>
+							<Route path=':id' element={<Productdetail />} />
+						</Route>
 
-                  <Route path='payment'>
-                     <Route path=':orderId' element={<PaymentForm />} />
-                  </Route>
+						<Route path='payment'>
+							<Route path=':orderId' element={<PaymentForm />} />
+						</Route>
 
-                  <Route path='dashboard'>
-                     <Route path='admin/products' element={<Dashboard />} />
-                     <Route path='admin/categories' element={<EditCategories />} />
-                     <Route path='admin/sales' element={<Sales />} />
-							 <Route path='admin/salesp' element={<SalesDashboard />} />
+						<Route path='dashboard'>
+							<Route path='admin/products' element={<Dashboard />} />
+							<Route path='admin/providers' element={<DashboardProvider />} />
+							<Route path='admin/categories' element={<EditCategories />} />
+							<Route path='admin/sales' element={<Sales />} />
+							<Route path='admin/salesp' element={<SalesDashboard />} />
 
-                     <Route path='admin/users' element={<Profiles />} />
-                  </Route>
+							<Route path='admin/users' element={<Profiles />} />
+						</Route>
 
-									
-                  <Route path='*' element={<Error404 />} />
-               </Route>
-            </Routes>
-            {/* <FaShoppingCart /> */}
-         </BrowserRouter>
-      </div>
-   );
+
+						<Route path='*' element={<Error404 />} />
+					</Route>
+				</Routes>
+				{/* <FaShoppingCart /> */}
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default AppRoutes;

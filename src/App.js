@@ -6,6 +6,8 @@ import store from './data/store'
 import AppRoutes from './app.routes';
 import { useEffect } from 'react';
 import { loadUser, getAllProducts, setLoadingAuth, getAllOrdersByUser, getAllCategories, getAllProviders } from './data/actions';
+import { CLEAR_CART } from "./data/actions/types";
+
 
 function App() {
 
@@ -28,6 +30,7 @@ function App() {
     store.dispatch(getAllProducts());
     store.dispatch(getAllCategories());
 		store.dispatch(getAllProviders());
+		
   }, []);
 
   return (

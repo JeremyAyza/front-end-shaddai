@@ -37,20 +37,7 @@ const CardProductAdmin = ({ product }) => {
             </ul>
           </div>
           
-          {/*{product.quantity === 0 ? (
-            <button
-              onClick={() =>
-                toast.warn("Producto agotado. Agrege más productos")
-              }
-              className="btn btn-warning"
-            >
-              Agotado
-            </button>
-          ) : (
-            <p>
-              <mark>En stock: {product.quantity}</mark>
-            </p>
-          )}*/}
+          
         </div>
         <div className="card-footer">
           <button
