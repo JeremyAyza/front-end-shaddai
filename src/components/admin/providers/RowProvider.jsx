@@ -37,7 +37,7 @@ export default function RowProvider({ provider,i}) {
 				</Button>
 			</td>
 			
-			<td>
+			{/*<td>
 				<Button 
 					variant="outline-danger" 
 					className="px-2"
@@ -46,7 +46,7 @@ export default function RowProvider({ provider,i}) {
 					🗑 Eliminar
 				</Button>
 				
-			</td>
+			</td>*/}
 
 			
 			
