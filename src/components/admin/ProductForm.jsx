@@ -241,7 +241,6 @@ const ProductForm = () => {
 							onChange={handleChange}
 							name="category"
 							value={form.category}
-							placeholder="asda"
 						>
 							<option value="" hidden={true} >Categoria</option>
 							{categories.map((e) => (

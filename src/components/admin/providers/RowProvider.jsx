@@ -25,6 +25,12 @@ export default function RowProvider({ provider,i}) {
 					📓 Más Detalles
 				</Link>
 			</td>*/}
+
+			<td>
+				<Link to={`/dashboard/admin/purchase/new/${provider._id}`} className="btn btn btn-outline-info px-2" >
+					📦 Comprar Productos
+				</Link>
+			</td>
 			<td>
 				<Button 
 				variant='outline-warning' 

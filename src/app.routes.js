@@ -28,6 +28,8 @@ import { Profiles } from './components/admin/Profiles';
 import { EditCategories } from './components/admin/EditCategories';
 import Contactos from './components/contacts/contacts';
 import DashboardProvider from './components/admin/providers/DashboardProvider';
+import NewPurchase from './components/admin/purchase/PurchaseNew';
+
 
 //editar categirias
 //import { EditCategories } from './components/admin/EditCategories';
@@ -69,9 +71,10 @@ const AppRoutes = () => {
 							<Route path='admin/products' element={<Dashboard />} />
 							<Route path='admin/providers' element={<DashboardProvider />} />
 							<Route path='admin/categories' element={<EditCategories />} />
-							<Route path='admin/sales' element={<Sales />} />
-							<Route path='admin/salesp' element={<SalesDashboard />} />
-
+							<Route path='admin/sales' element={<SalesDashboard />} />
+							<Route path='admin/purchase/new'>
+								<Route path=':providerId' element={<NewPurchase />} />
+							</Route>
 							<Route path='admin/users' element={<Profiles />} />
 						</Route>
 

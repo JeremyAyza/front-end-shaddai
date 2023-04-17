@@ -54,6 +54,8 @@ const HeaderNavbar = () => {
 
 							{/* si está logeado aparece user */}
 							{isAuth && (<Nav.Link as={Link} to="/user">Mi cuenta</Nav.Link>)}
+														{isAuth && (<Nav.Link as={Link} to="/user">Mi cuenta</Nav.Link>)}
+
 
 							{/* si está logueado y es admin aparece gestiones */}
 
@@ -63,11 +65,10 @@ const HeaderNavbar = () => {
 										<NavDropdown title="Gestiones" id="collasible-nav-dropdown">
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/products`} >Gestion Producto</NavDropdown.Item>
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/providers`} >Gestion Proveedor</NavDropdown.Item>
-
-
-											
 											{/*<NavDropdown.Item as={Link} to={`/dashboard/admin/sales`} >Gestion Ventas</NavDropdown.Item>*/}
-											<NavDropdown.Item as={Link} to={`/dashboard/admin/salesp`} >Gestion Ventas</NavDropdown.Item>
+											<NavDropdown.Item as={Link} to={`/dashboard/admin/purchase`} >Gestion Abastecimiento</NavDropdown.Item>
+
+											<NavDropdown.Item as={Link} to={`/dashboard/admin/sales`} >Gestion Ventas</NavDropdown.Item>
 
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/users`} >Gestion Usuarios</NavDropdown.Item>
 											<NavDropdown.Item as={Link} to={`/dashboard/admin/categories`} >Gestion Categorias</NavDropdown.Item>
