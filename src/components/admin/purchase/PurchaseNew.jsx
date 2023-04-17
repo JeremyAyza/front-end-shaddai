@@ -73,7 +73,7 @@ const NewPurchase = () => {
 		if(quantity<=0){
 			toast.error("La cantidad deseada debe ser mayor a 0");
 		}
-		else if (selectedProduct.quantity >= quantity ) {
+		else{
 			const item = {
 				...selectedProduct,
 				quantity
@@ -83,10 +83,7 @@ const NewPurchase = () => {
 			handleClean()
 
 		}
-		else{
-			toast.error("La cantidad deseada debe ser menor al stock");
-
-		}
+		
 	};
 
 	const handleClean = () => {
